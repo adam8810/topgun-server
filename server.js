@@ -19,6 +19,7 @@ var router = express();
 var server = http.createServer(router);
 var io = socketio.listen(server);
 
+router.use('/bower_components', express.static(__dirname + '/bower_components'));
 router.use(express.static(path.resolve(__dirname, 'app')));
 
 io.on('connection', function (socket) {
