@@ -2,7 +2,6 @@
   "name": "topgun",
   "private": true,
   "dependencies": {
-    "jquery": "~1.10.2",
     "phaser": "~1.1.5",
     "socket.io-client": "~0.9.16"
   },
