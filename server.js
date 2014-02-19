@@ -37,7 +37,6 @@ io.on('connection', function (socket) {
     });
 
     socket.on('tankupdate', function(data) {
-//        console.log('tu', data);
         socket.broadcast.emit('tankmove',data);
     });
 });
