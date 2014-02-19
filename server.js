@@ -21,7 +21,7 @@ var io = socketio.listen(server);
 
 
 router.use(express.static(path.resolve(__dirname, 'app')));
-router.use(express.static(path.resolve(__dirname, 'app/bower_components')));
+router.use(express.static(path.resolve(__dirname, 'bower_components')));
 //router.use('/bower', express.static(__dirname + '/../bower_components'))
 
 io.on('connection', function (socket) {
