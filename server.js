@@ -15,14 +15,14 @@ var express = require('express');
 // Creates a new instance of SimpleServer with the following options:
 //  * `port` - The HTTP port to listen on. If `process.env.PORT` is set, _it overrides this value_.
 //
-var router = express();
-var server = http.createServer(router);
+var app = express();
+var server = http.createServer(app);
 var io = socketio.listen(server);
 
 
-router.use(express.static(path.resolve(__dirname, 'app')));
-router.use(express.static(path.resolve(__dirname, 'bower_components')));
-//router.use('/bower', express.static(__dirname + '/../bower_components'))
+app.use(express.static(path.resolve(__dirname, 'app')));
+app.use(express.static(path.resolve(__dirname, 'app/bower_components')));
+//app.use('/bower', express.static(__dirname + '/../bower_components'))
 
 io.on('connection', function (socket) {
     // console.log(socket.id);
