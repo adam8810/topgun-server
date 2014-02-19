@@ -19,12 +19,12 @@ var app = express();
 var server = http.createServer(app);
 var io = socketio.listen(server);
 
-app.configure(function() {
-    app.use(express.static(__dirname + '/app'));
-});
+//app.configure(function() {
+//    app.use(express.static(__dirname + '/app'));
+//});
 
 
-//app.use(express.static(path.resolve(__dirname, 'app')));
+app.use(express.static(path.resolve(__dirname, 'app')));
 //app.use(express.static(path.resolve(__dirname, 'app/bower_components')));
 //app.use('/bower', express.static(__dirname + '/../bower_components'))
 //app.use('/bower_components', express.static(__dirname + '../../bower_components'));
