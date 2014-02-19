@@ -4,16 +4,20 @@ window.onload = function () {
     var world = {
         height: 600,
         width: 1000
-    }
+    };
+
+    var game = new Phaser.Game(world.width, world.height, Phaser.AUTO, 'game-canvas', { preload: preload, create: create, update: update });
+
     var iam,
         myTank,
         tankInfo = {
+            id: null,
             angle: 0,
             currentSpeed: 0,
             x: world.width / 2,
             y: world.height / 2
         },
-        otherTanks = [],
+        tankList = [],
         turret,
         land,
         cursor,
@@ -22,7 +26,7 @@ window.onload = function () {
 
     var socket = io.connect();
     socket.on('connection', function (data) {
-        console.log(data);
+//        console.log(data);
 
     });
 
@@ -30,25 +34,29 @@ window.onload = function () {
         tankInfo.angle = updatelist.payload.angle;
         tankInfo.x = updatelist.payload.x;
         tankInfo.y = updatelist.payload.y;
-
     });
 
     socket.on('youare', function (id) {
         iam = id;
+        tankInfo.id = id;
     });
 
-
-    var game = new Phaser.Game(world.width, world.height, Phaser.AUTO, 'game-canvas', { preload: preload, create: create, update: update });
+    socket.on('room', function (list) {
+        tankList = list;
+    });
 
     function preload() {
         game.load.atlas('tank', '/images/tanks.png', '/tanks.json');
         game.load.image('earth', '/images/scorched_earth.png');
         game.load.image('bullet', '/images/bullet.png');
+        game.add.text(16, 16, 'Room', {font: '32px arial', fill: '#000'});
 
     }
 
     function create() {
-        game.add.text(16, 16, 'h', {font: '32px arial', fill: '#000'});
+        console.log(iam);
+        console.log(tankList);
+
         game.stage.disableVisibilityChange = true;
         game.world.setBounds(-1000, -1000, 2000, 2000);
 
@@ -67,7 +75,7 @@ window.onload = function () {
     }
 
     function update() {
-
+//        console.log(tankList);
         myTank.animations.play('move');
 
         if (cursor.left.isDown) {
